@@ -1,0 +1,88 @@
+from huggingface_hub import InferenceClient
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+api_key = os.getenv("HF_TOKEN")
+
+client = InferenceClient(
+    provider="hf-inference",
+    api_key=api_key
+)
+
+text = """Let’s discuss them briefly:
+
+1) Naive RAG
+
+Retrieves documents purely based on vector similarity between the query embedding and stored embeddings.
+
+Works best for simple, fact-based queries where direct semantic matching suffices.
+
+2) Multimodal RAG
+
+Handles multiple data types (text, images, audio, etc.) by embedding and retrieving across modalities.
+
+Ideal for cross-modal retrieval tasks like answering a text query with both text and image context.
+
+3) HyDE
+
+Queries are not semantically similar to documents.
+
+This technique generates a hypothetical answer document from the query before retrieval.
+
+Uses this generated document’s embedding to find more relevant real documents.
+
+4) Corrective RAG
+
+Validates retrieved results by comparing them against trusted sources (e.g., web search).
+
+Ensures up-to-date and accurate information, filtering or correcting retrieved content before passing to the LLM.
+
+5) Graph RAG
+
+Converts retrieved content into a knowledge graph to capture relationships and entities.
+
+Enhances reasoning by providing structured context alongside raw text to the LLM.
+
+6) Hybrid RAG
+
+Combines dense vector retrieval with graph-based retrieval in a single pipeline.
+
+Useful when the task requires both unstructured text and structured relational data for richer answers.
+
+7) Adaptive RAG
+
+Dynamically decides if a query requires a simple direct retrieval or a multi-step reasoning chain.
+
+Breaks complex queries into smaller sub-queries for better coverage and accuracy.
+
+8) Agentic RAG
+
+Uses AI agents with planning, reasoning (ReAct, CoT), and memory to orchestrate retrieval from multiple sources.
+
+Best suited for complex workflows that require tool use, external APIs, or combining multiple RAG techniques.
+
+We have covered several of these architectures with implementations in our RAG series to fully prepare you for building production-grade RAG systems:
+
+​​​​RAG fundamentals​​​​
+
+​​​​RAG evaluation​​​​
+
+​​​​RAG optimization​​​​
+
+​​​​Multimodal RAG​​​​
+
+​​​​Graph RAG​​​​
+
+​​​​Multivector retrieval using ColBERT​​​​
+
+​​​​RAG over complex real-world docs ft. ColPali
+
+👉 Over to you: Which RAG architecture do you use the most?
+
+Thanks for reading!""",
+
+response = client.summarization(text, model="facebook/bart-large-cnn")
+
+print(response.summary_text)
