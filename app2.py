@@ -22,7 +22,7 @@ def main():
             with st.spinner("Generating summary...."):
                 response = client.summarization(
                     user_input,
-                    model="facebook/bart-large-cnn"
+                    model="sshleifer/distilbart-cnn-12-6"
                 )
                 st.write(response.summary_text)
 
