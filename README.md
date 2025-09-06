@@ -1,6 +1,6 @@
 📝 Text Summarization App
 
-Harnessing the power of Hugging Face models and a simple Streamlit GUI, this project provides an easy-to-use web interface for summarizing long text into concise summaries.
+Harnessing the power of Hugging Face models and a simple Streamlit GUI, this project provides an easy-to-use web interface for summarizing long text into concise summaries.Deployed to :https://dhe-reigner--text-summarization-app-app2-wksa8f.streamlit.app/
 
 🚀 Features
 
